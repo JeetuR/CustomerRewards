@@ -1,0 +1,23 @@
+<configuration debug="true">
+<timestamp key="byDay" datePattern="yyyyMMdd"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %M- %msg%n</pattern>
+        </encoder>
+    </appender>
+ 
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>c:/temp/rewardsService_${byDay}_log.txt</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd} %d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} %M - \(%line\) - %msg%n</pattern>
+        </encoder>
+    </appender>
+     
+    <logger name="com.store.customer" level="DEBUG" /> 
+  
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" /> 
+    </root>
+</configuration>
