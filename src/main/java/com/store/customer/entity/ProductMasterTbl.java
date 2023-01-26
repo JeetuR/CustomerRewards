@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.store.customer.entity;
 
 import javax.persistence.Entity;
@@ -13,31 +10,24 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-/**
- * @author jroddam
- *
- */
 @Entity
 @Table(name = "product_master")
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 public class ProductMasterTbl extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-	
-    private String productCode;
-    private String productName;
-    private Double price;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    public ProductMasterTbl(Integer id) {
-        this.id = id;
-    }
+	private String productCode;
+	private String productName;
+	private Double price;
+
+	public ProductMasterTbl(Integer id) {
+		this.id = id;
+	}
 }

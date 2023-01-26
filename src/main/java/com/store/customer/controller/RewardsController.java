@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.store.customer.controller;
 
 import java.text.DecimalFormat;
@@ -21,60 +18,54 @@ import com.store.customer.service.RewardsService;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @author jroddam
- *
- */
-
 @Slf4j
 @RestController
+@RequestMapping("/store")
 public class RewardsController {
-	
+
 	@Autowired
 	private RewardsService rewardsService;
-	
+
 	@Autowired
 	ErrorMessages errors;
-	
-	
-	@RequestMapping(value="/customer/getRewardsPoints/{customerID}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/customer/getRewardsPoints/{customerID}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> computeRewards(@PathVariable(name="customerID" , required = true) String customerID) {
-		log.info("Request to get rewards for customer ID : " + customerID);
+	public ResponseEntity<?> computeRewards(
+			@PathVariable(name = "customerID", required = true) String customerID) {
+
 		Integer custID = null;
-		
+
 		try {
 			custID = Integer.parseInt(customerID);
-		} catch(Exception invalidCustID) {
+		} catch (Exception invalidCustID) {
 			log.error("Invalid customer ID in request : " + customerID, invalidCustID);
 			return ResponseEntity.badRequest().body(errors.CUSTOMER_NOT_FOUND);
 		}
-		
+
 		try {
-			log.debug("Invoking rewards service...");
-			Double custRewardPoints = rewardsService.computeRewardsFor(custID);
-			if(custRewardPoints == null) {
-				log.info("No rewards determined for customer ID " + customerID);
+
+			Double custRewardPoints = rewardsService.computeRewards(custID);
+			if (custRewardPoints == null) {
 				return ResponseEntity.badRequest().body(errors.NO_ELIGIBLE_TRANSACTIONS);
 			}
-			
-			log.debug("Formatting rewards "+ custRewardPoints + "  ...");
+
 			String formattedPointsValue = new DecimalFormat("###.00").format(custRewardPoints);
-			log.info("Computed rewards for customer ID "+ customerID + " . Total rewards : " + formattedPointsValue);
-			RewardsInfo response = RewardsInfo.builder().customerRewards(formattedPointsValue).build();
-			log.debug("Returning response....");
-	        return new ResponseEntity<>(response, HttpStatus.OK);
-	        
-		} catch(RewardsException rewardsExp) {
-			log.error("Error fetching rewards for customer ID : " + custID + " : " + rewardsExp.getErrorMessage());
+
+			RewardsInfo response = RewardsInfo.builder().customerRewards(formattedPointsValue)
+					.build();
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch (RewardsException rewardsExp) {
+			log.error("Error fetching rewards for customer ID : " + custID + " : "
+					+ rewardsExp.getErrorMessage());
 			return ResponseEntity.badRequest().body(rewardsExp.getErrorMessage());
-		} catch(Exception exp) {
-			log.error("Internal server error fetching rewards for customer ID : " + custID , exp);
+		} catch (Exception exp) {
+			log.error("Internal server error fetching rewards for customer ID : " + custID, exp);
 			return ResponseEntity.badRequest().body(errors.INTERNAL_SERVER_ERROR);
 		}
-		
-		
-	}
 
+	}
 
 }

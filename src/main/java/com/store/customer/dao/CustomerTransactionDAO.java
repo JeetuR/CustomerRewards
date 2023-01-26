@@ -1,6 +1,5 @@
 package com.store.customer.dao;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +15,8 @@ import com.store.customer.entity.TransactionsTbl;
 
 @Repository
 public interface CustomerTransactionDAO extends JpaRepository<TransactionsTbl, Integer> {
-    
-	List<TransactionsTbl> findAllByCustomerIdAndCreatedOnGreaterThanEqual(CustomerMasterTbl customer, Date createdOn);
-    
+
+	List<TransactionsTbl> findAllByCustomerIdAndCreatedOnGreaterThanEqual(
+			CustomerMasterTbl customer, Date createdOn);
+
 }

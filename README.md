@@ -34,7 +34,11 @@ This service module calculates reward points for customers based on their transa
  -Dlogback.configurationFile=C:\workspace-springboot\src\main\resources\logback.xml 
  
  To access the service:
- http://localhost:8080/customer/getRewardsPoints/301
+ http://localhost:8080/store/customer/getRewardsPoints/301
  
+ Code coverage stats:
+ SonarQube is used to run code coverage stats.
+ RewardsService - 95.5%
+ RewardsController - 79.2%
  
  
