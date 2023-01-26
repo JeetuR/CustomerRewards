@@ -39,6 +39,6 @@ This service module calculates reward points for customers based on their transa
  Code coverage stats:
  SonarQube is used to run code coverage stats.
  RewardsService - 95.5%
- RewardsController - 79.2%
+ RewardsController - 90.5%
  
  
