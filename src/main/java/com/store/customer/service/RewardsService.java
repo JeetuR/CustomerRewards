@@ -40,6 +40,14 @@ public class RewardsService {
 
 	private SimpleDateFormat monthYearFmt = new SimpleDateFormat("yyyy_MMM");
 
+	/**
+	 * This method accepts customer ID as input, fetches all transactions for this customer in
+	 * a given time frame , then calculates the reward points by month and return the sum.
+	 * 
+	 * @param customerID
+	 * @return
+	 * @throws RewardsException
+	 */
 	public Double computeRewards(Integer customerID) throws RewardsException {
 
 		Optional<CustomerMasterTbl> customerOptional = customerDAO.findById(customerID);
