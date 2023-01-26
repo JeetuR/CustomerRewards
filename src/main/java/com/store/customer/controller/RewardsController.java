@@ -61,9 +61,6 @@ public class RewardsController {
 			log.error("Error fetching rewards for customer ID : " + custID + " : "
 					+ rewardsExp.getErrorMessage());
 			return ResponseEntity.badRequest().body(rewardsExp.getErrorMessage());
-		} catch (Exception exp) {
-			log.error("Internal server error fetching rewards for customer ID : " + custID, exp);
-			return ResponseEntity.badRequest().body(errors.INTERNAL_SERVER_ERROR);
 		}
 
 	}

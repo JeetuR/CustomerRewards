@@ -41,6 +41,7 @@ public class RewardsService {
 	private SimpleDateFormat monthYearFmt = new SimpleDateFormat("yyyy_MMM");
 
 	public Double computeRewards(Integer customerID) throws RewardsException {
+
 		Optional<CustomerMasterTbl> customerOptional = customerDAO.findById(customerID);
 
 		if (customerOptional.isEmpty()) {

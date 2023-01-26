@@ -9,6 +9,6 @@ public class ErrorMessages {
 
 	public String NO_ELIGIBLE_TRANSACTIONS = "No Eligible Transactions Found For Customer";
 
-	public String INTERNAL_SERVER_ERROR = "Failed to compute rewards";
+	public String INTERNAL_SERVER_ERROR = "Internal Error Failed to compute rewards";
 
 }
