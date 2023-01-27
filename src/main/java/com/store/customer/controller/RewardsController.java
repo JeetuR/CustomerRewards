@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.store.customer.exception.ErrorMessages;
-import com.store.customer.exception.RewardsException;
 import com.store.customer.service.RewardsInfo;
 import com.store.customer.service.RewardsService;
 
@@ -43,25 +42,16 @@ public class RewardsController {
 			return ResponseEntity.badRequest().body(errors.CUSTOMER_NOT_FOUND);
 		}
 
-		try {
-
-			Double custRewardPoints = rewardsService.computeRewards(custID);
-			if (custRewardPoints == null) {
-				return ResponseEntity.badRequest().body(errors.NO_ELIGIBLE_TRANSACTIONS);
-			}
-
-			String formattedPointsValue = new DecimalFormat("###.00").format(custRewardPoints);
-
-			RewardsInfo response = RewardsInfo.builder().customerRewards(formattedPointsValue)
-					.build();
-
-			return new ResponseEntity<>(response, HttpStatus.OK);
-
-		} catch (RewardsException rewardsExp) {
-			log.error("Error fetching rewards for customer ID : " + custID + " : "
-					+ rewardsExp.getErrorMessage());
-			return ResponseEntity.badRequest().body(rewardsExp.getErrorMessage());
+		Double custRewardPoints = rewardsService.computeRewards(custID);
+		if (custRewardPoints == null) {
+			return ResponseEntity.badRequest().body(errors.NO_ELIGIBLE_TRANSACTIONS);
 		}
+
+		String formattedPointsValue = new DecimalFormat("###.00").format(custRewardPoints);
+
+		RewardsInfo response = RewardsInfo.builder().customerRewards(formattedPointsValue).build();
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}
 
